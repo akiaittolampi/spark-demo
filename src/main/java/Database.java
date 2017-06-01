@@ -14,7 +14,7 @@ public class Database {
 	private String model;
 
 	public Database() {
-		// ORMLite needs a no-arg constructor
+		// ORMLite needs a no-args constructor
 	}
 
 	public int getId() {
