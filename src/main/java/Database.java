@@ -4,6 +4,7 @@ import com.j256.ormlite.field.*;
 @DatabaseTable(tableName = "cars")
 public class Database {
 
+
 	@DatabaseField(generatedId = true)
 	private int id;
 
@@ -12,6 +13,9 @@ public class Database {
 
 	@DatabaseField
 	private String model;
+
+	@DatabaseField
+	private String registerNumber;
 
 	public Database() {
 		// ORMLite needs a no-args constructor
@@ -40,4 +44,14 @@ public class Database {
 	public String getModel() {
 		return this.model;
 	}
+
+	public String getRegisternumber() {
+		return this.registerNumber;
+	}
+
+	public void setRegisternumber(String registerNumber) {
+		this.registerNumber = registerNumber;
+	}
+	
+	
 }
