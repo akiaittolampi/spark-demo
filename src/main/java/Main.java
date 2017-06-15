@@ -19,6 +19,7 @@ import spark.Response;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.db.Db2DatabaseType;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.logger.LocalLog;
 import com.j256.ormlite.spring.DaoFactory;
@@ -72,8 +73,7 @@ public class Main {
 			public Object handle(Request req, Response res) throws Exception {
 				final Database db = databaseDao.queryForId(req.params(":id"));
 				if (db != null) {
-					return "Car: " + db.getCar() + " " + db.getModel() + " "
-							+ db.getRegisternumber();
+					return JsonUtil.toJson(db);
 				} else {
 					final int httpNotFound = 404;
 					final String msg = "User not found!";
@@ -100,6 +100,30 @@ public class Main {
 
 				return createUserId;
 			}
+		});
+
+		put("/cars/:id", new Route() {
+			public Object handle(Request req, Response res) throws SQLException {				
+				final Database db = databaseDao.queryForId(req.params(":id"));
+						
+					String car = req.queryParams("car");
+					String model = req.queryParams("model");
+					String regnum = req.queryParams("regnum");
+
+					db.setCar(car);
+					db.setModel(model);
+					db.setRegisternumber(regnum);
+				
+				final int updateUserId = databaseDao.update(db);
+				final int httpStatus = 200;
+				res.status(httpStatus);
+
+				return updateUserId;
+			}
+		});
+
+		after((req, res) -> {
+			res.type("application/json");
 		});
 	}
 }
