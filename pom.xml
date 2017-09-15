@@ -6,21 +6,24 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<build>
   <plugins>
-    <plugin>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-maven-plugin</artifactId>
+   <plugin>
+    <groupId>com.jolira</groupId>
+    <artifactId>onejar-maven-plugin</artifactId>
     <executions>
         <execution>
-            <goals>
-                <goal>repackage</goal>
-            </goals>
             <configuration>
-                <classifier>spring-boot</classifier>
                 <mainClass>Main</mainClass>
+                <attachToBuild>true</attachToBuild>
+                <filename>
+                  ${project.build.finalName}.${project.packaging}
+                </filename>
             </configuration>
+            <goals>
+                <goal>one-jar</goal>
+            </goals>
         </execution>
     </executions>
-</plugin>	  
+</plugin>
   </plugins>
 </build>
 	<dependencies>
